@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Young Men Activity Planning Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy:   #1a2744;
+      --navy-mid: #243257;
+      --gold:   #c8973a;
+      --gold-lt:#e6b86a;
+      --cream:  #f7f3ec;
+      --stone:  #e8e0d4;
+      --muted:  #8a8178;
+      --white:  #ffffff;
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --shadow-card: 0 2px 12px rgba(26,39,68,.10);
+      --shadow-lift: 0 6px 24px rgba(26,39,68,.16);
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'DM Sans', sans-serif;
+      --spacing-xs: 4px;
+      --spacing-sm: 8px;
+      --spacing-md: 16px;
+      --spacing-lg: 24px;
+      --spacing-xl: 40px;
+      --spacing-2xl: 64px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--cream);
+      color: var(--navy);
+      min-height: 100vh;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--navy); color: var(--white);
+      padding: var(--spacing-xl) var(--spacing-md);
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 50% 110%, rgba(200,151,58,.18) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 30% at 80% 20%, rgba(200,151,58,.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-eyebrow { font-weight: 500; font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-lt); margin-bottom: var(--spacing-sm); }
+    .hero h1 { font-family: var(--font-display); font-size: clamp(1.9rem, 7vw, 3.2rem); font-weight: 700; line-height: 1.15; margin-bottom: var(--spacing-xs); }
+    .hero-sub { font-size: .85rem; color: rgba(255,255,255,.65); margin-top: var(--spacing-sm); max-width: 400px; margin-inline: auto; }
+    .gold-rule { width: 48px; height: 3px; background: var(--gold); border-radius: 2px; margin: var(--spacing-md) auto; }
+
+    /* ── MAIN ── */
+    .main { max-width: 700px; margin: 0 auto; padding: var(--spacing-xl) var(--spacing-md) var(--spacing-2xl); }
+
+    /* ── SECTION LABELS ── */
+    .section-label {
+      font-size: .68rem; font-weight: 500; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: var(--spacing-md);
+    }
+
+    /* ── SECTION DIVIDER ── */
+    .section-divider { display: flex; align-items: center; gap: var(--spacing-md); margin: var(--spacing-xl) 0; }
+    .section-divider-line { flex: 1; height: 1px; background: var(--stone); }
+    .section-divider-label { font-size: .68rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+
+    /* ── LEADER REF CARD ── */
+    .leader-ref-section { margin-bottom: var(--spacing-xl); }
+    .leader-ref-card { background: var(--white); border-radius: var(--radius-md); border: 1px solid var(--stone); overflow: hidden; margin-bottom: 10px; }
+    .leader-ref-head { padding: 10px 16px 9px; border-bottom: 1px solid var(--stone); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .leader-ref-head-icon { font-size: 1rem; flex-shrink: 0; }
+    .leader-ref-head-title { font-size: .8rem; font-weight: 600; color: var(--navy); flex: 1; }
+    .leader-ref-head-sub { font-size: .65rem; color: var(--muted); white-space: nowrap; }
+    .leader-ref-notice { background: #fdf6ec; border: 1px solid var(--gold-lt); border-radius: var(--radius-sm); padding: 8px 14px; font-size: .72rem; color: #7a5010; line-height: 1.5; margin-bottom: 10px; display: flex; gap: 8px; align-items: flex-start; }
+
+    /* Wednesday schedule grid */
+    .wed-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+    @media (max-width: 480px) { .wed-grid { grid-template-columns: 1fr 1fr; } }
+    .wed-col { padding: 10px 14px; border-right: 1px solid var(--stone); }
+    .wed-col:last-child { border-right: none; }
+    .wed-num { font-size: .6rem; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--gold); margin-bottom: 4px; }
+    .wed-who { font-size: .75rem; font-weight: 500; color: var(--navy); line-height: 1.35; }
+    .wed-note { font-size: .64rem; color: var(--muted); margin-top: 2px; line-height: 1.3; }
+
+    /* Monthly assignment grid */
+    .months-assign-grid { display: grid; grid-template-columns: repeat(6, 1fr); }
+    @media (max-width: 560px) { .months-assign-grid { grid-template-columns: repeat(3, 1fr); } }
+    .month-assign-cell { padding: 8px 12px; border-right: 1px solid var(--stone); border-bottom: 1px solid var(--stone); }
+    .month-assign-cell:nth-child(6n) { border-right: none; }
+    .month-assign-cell:nth-last-child(-n+6) { border-bottom: none; }
+    @media (max-width: 560px) {
+      .month-assign-cell:nth-child(3n) { border-right: none; }
+      .month-assign-cell:nth-child(6n) { border-right: 1px solid var(--stone); }
+    }
+    .mac-month { font-size: .62rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 5px; }
+    .mac-row { display: flex; align-items: center; gap: 5px; margin-bottom: 3px; font-size: .62rem; color: var(--navy); font-weight: 500; line-height: 1.25; }
+    .mac-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .mac-dot-priest   { background: #c0604a; }
+    .mac-dot-teachers { background: #3a8f7f; }
+    .mac-dot-deacons  { background: #FC8F8F; }
+
+    .leader-ref-legend { display: flex; flex-wrap: wrap; gap: 8px 16px; padding: 10px 14px; background: var(--white); border-radius: var(--radius-sm); border: 1px solid var(--stone); font-size: .68rem; color: var(--navy); align-items: center; }
+    .leader-ref-legend-label { font-size: .62rem; font-weight: 500; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+    .leader-ref-legend-item { display: flex; align-items: center; gap: 5px; }
+
+    /* ── GOALS / CATEGORY CARDS ── */
+    .goals-section { margin-bottom: var(--spacing-xl); }
+    .goals-grid { display: grid; grid-template-columns: 1fr; gap: var(--spacing-md); }
+    @media (min-width: 480px) { .goals-grid { grid-template-columns: 1fr 1fr; } }
+    .goal-card { background: var(--white); border-radius: var(--radius-md); border-top: 3px solid transparent; box-shadow: var(--shadow-card); overflow: hidden; transition: box-shadow .18s, transform .18s; }
+    .goal-card:hover { box-shadow: var(--shadow-lift); transform: translateY(-2px); }
+    .goal-spiritual    { border-top-color: #9b6cbf; }
+    .goal-intellectual { border-top-color: #5b82bf; }
+    .goal-physical     { border-top-color: #6c9f6c; }
+    .goal-social       { border-top-color: var(--gold); }
+    .goal-card-header { display: flex; align-items: center; gap: 9px; padding: 10px var(--spacing-md); }
+    .goal-spiritual   .goal-card-header { background: #f5eef9; }
+    .goal-intellectual .goal-card-header { background: #eef1f9; }
+    .goal-physical    .goal-card-header { background: #eef5ee; }
+    .goal-social      .goal-card-header { background: #fdf6ec; }
+    .goal-icon { font-size: 1.1rem; line-height: 1; }
+    .goal-title { font-family: var(--font-display); font-size: .88rem; font-weight: 700; color: var(--navy); }
+    .goal-list { list-style: none; padding: var(--spacing-xs) var(--spacing-md) var(--spacing-md); }
+    .goal-list li { position: relative; padding: 7px 0 7px 20px; font-size: .82rem; color: var(--navy); border-bottom: 1px solid var(--stone); line-height: 1.45; }
+    .goal-list li:last-child { border-bottom: none; }
+    .goal-list li::before { content: '›'; position: absolute; left: 3px; top: 6px; font-size: 1.1rem; font-weight: 700; line-height: 1; }
+    .goal-spiritual   .goal-list li::before { color: #9b6cbf; }
+    .goal-intellectual .goal-list li::before { color: #5b82bf; }
+    .goal-physical    .goal-list li::before { color: #6c9f6c; }
+    .goal-social      .goal-list li::before { color: var(--gold); }
+
+    /* ── CHECKLIST ── */
+    .checklist-section { margin-bottom: var(--spacing-xl); }
+    .checklist-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    @media (max-width: 480px) { .checklist-grid { grid-template-columns: 1fr; } }
+    .check-item {
+      background: var(--white); border: 1px solid var(--stone); border-radius: var(--radius-sm);
+      padding: 10px 14px; display: flex; gap: 10px; align-items: flex-start;
+      font-size: .8rem; color: var(--navy); line-height: 1.4;
+    }
+    .check-icon { color: var(--gold); font-size: .9rem; flex-shrink: 0; margin-top: 1px; }
+
+    /* ── CONFLICT CARDS ── */
+    .conflict-section { margin-bottom: var(--spacing-xl); }
+    .conflict-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--spacing-md); }
+    @media (max-width: 480px) { .conflict-grid { grid-template-columns: 1fr; } }
+    .conflict-card { background: var(--white); border-radius: var(--radius-md); box-shadow: var(--shadow-card); overflow: hidden; }
+    .conflict-card-head { padding: 10px 14px; border-bottom: 1px solid var(--stone); font-family: var(--font-display); font-size: .85rem; font-weight: 700; color: var(--navy); }
+    .conflict-list { list-style: none; padding: 8px 14px 12px; }
+    .conflict-list li { font-size: .78rem; color: var(--navy); padding: 4px 0 4px 14px; border-bottom: 1px solid var(--stone); position: relative; }
+    .conflict-list li:last-child { border-bottom: none; }
+    .conflict-list li::before { content: '·'; position: absolute; left: 4px; color: var(--gold); font-weight: 700; }
+
+    /* ── TEMPLE GOAL ── */
+    .temple-section { margin-bottom: var(--spacing-xl); }
+    .temple-card { background: var(--white); border-radius: var(--radius-md); border: 1px solid var(--stone); box-shadow: var(--shadow-card); overflow: hidden; }
+    .temple-head { padding: 10px 16px; border-bottom: 1px solid var(--stone); display: flex; align-items: center; gap: 8px; }
+    .temple-body { padding: 14px 16px; font-size: .82rem; color: var(--navy); }
+    .pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .pill {
+      background: var(--cream); border: 1px solid var(--stone); border-radius: 999px;
+      padding: 4px 12px; font-size: .75rem; font-weight: 500; color: var(--navy);
+    }
+
+    /* ── QUOTE ── */
+    .quote-block {
+      background: linear-gradient(135deg, #fdf6ec, var(--white));
+      border: 1px solid var(--gold-lt); border-radius: var(--radius-lg);
+      padding: var(--spacing-lg) var(--spacing-xl);
+      text-align: center; margin-bottom: var(--spacing-xl);
+    }
+    .quote-block p { font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; color: var(--navy); line-height: 1.5; }
+    .quote-block cite { font-size: .72rem; color: var(--muted); margin-top: 8px; display: block; font-style: normal; letter-spacing: .06em; text-transform: uppercase; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--navy); color: rgba(255,255,255,.5); text-align: center; padding: var(--spacing-lg) var(--spacing-md); font-size: .72rem; letter-spacing: .04em; }
+    footer strong { color: var(--gold-lt); }
+  </style>
+</head>
+<body>
+
+<header class="hero">
+  <p class="hero-eyebrow">Lehi 41st Ward · Young Men</p>
+  <h1>Activity Planning Guide</h1>
+  <div class="gold-rule"></div>
+  <p style="font-family:var(--font-display);font-size:1.05rem;color:var(--gold-lt);font-weight:600;">Yearly Planning Reference</p>
+  <p class="hero-sub">Help Young Men leaders and quorum presidencies organize meaningful, balanced, and spiritual activities.</p>
+</header>
+
+<main class="main">
+
+  <!-- ── WEDNESDAY SCHEDULE ── -->
+  <div class="leader-ref-section">
+    <p class="section-label">Leader Quick Reference</p>
+
+    <div class="leader-ref-card">
+      <div class="leader-ref-head">
+        <span class="leader-ref-head-icon">📅</span>
+        <span class="leader-ref-head-title">Mutual Nights — Wednesday Schedule</span>
+      </div>
+      <div class="wed-grid">
+        <div class="wed-col">
+          <div class="wed-num">1st Wed</div>
+          <div class="wed-who">Combined Young Men</div>
+          <div class="wed-note">Assigned quorum organizes &amp; leads (see rotation below)</div>
+        </div>
+        <div class="wed-col">
+          <div class="wed-num">2nd &amp; 4th Wed</div>
+          <div class="wed-who">Combined Youth</div>
+          <div class="wed-note">Even months: YM host · Odd months: YW host</div>
+        </div>
+        <div class="wed-col">
+          <div class="wed-num">3rd Wed</div>
+          <div class="wed-who">Individual Quorums</div>
+          <div class="wed-note">Each quorum runs their own activity</div>
+        </div>
+        <div class="wed-col">
+          <div class="wed-num">5th Wed</div>
+          <div class="wed-who">Bishopric-led Night</div>
+          <div class="wed-note">When a 5th Wednesday occurs</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sacrament Bread / 1st Wed Rotation -->
+    <div class="leader-ref-card">
+      <div class="leader-ref-head">
+        <span class="leader-ref-head-icon">🗓</span>
+        <span class="leader-ref-head-title">Monthly Assignments — Sacrament Bread &amp; 1st Wed YM Activity</span>
+        <span class="leader-ref-head-sub">Same rotation</span>
+      </div>
+      <div class="months-assign-grid">
+        <div class="month-assign-cell"><div class="mac-month">January</div><div class="mac-row"><span class="mac-dot mac-dot-priest"></span><span>Priests</span></div></div>
+        <div class="month-assign-cell"><div class="mac-month">February</div><div class="mac-row"><span class="mac-dot mac-dot-teachers"></span><span>Teachers</span></div></div>
+        <div class="month-assign-cell"><div class="mac-month">March</div><div class="mac-row"><span class="mac-dot mac-dot-deacons"></span><span>Deacons</span></div></div>
+        <div class="month-assign-cell"><div class="mac-month">April</div><div class="mac-row"><span class="mac-dot mac-dot-priest"></span><span>Priests</span></div></div>
+        <div class="month-assign-cell"><div class="mac-month">May</div><div class="mac-row"><span class="mac-dot mac-dot-teachers"></span><span>Teachers</span></div></div>
+        <div class="month-assign-cell"><div class="mac-month">June</div><div class="mac-row"><span class="mac-dot mac-dot-deacons"></span><span>Deacons</span></div></div>
+        <div class="month-assign-cell"><div class="mac-month">July</div><div class="mac-row"><span class="mac-dot mac-dot-priest"></span><span>Priests</span></div></div>
+        <div class="month-assign-cell"><div class="mac-month">August</div><div class="mac-row"><span class="mac-dot mac-dot-teachers"></span><span>Teachers</span></div></div>
+        <div class="month-assign-cell"><div class="mac-month">September</div><div class="mac-row"><span class="mac-dot mac-dot-deacons"></span><span>Deacons</span></div></div>
+        <div class="month-assign-cell"><div class="mac-month">October</div><div class="mac-row"><span class="mac-dot mac-dot-priest"></span><span>Priests</span></div></div>
+        <div class="month-assign-cell"><div class="mac-month">November</div><div class="mac-row"><span class="mac-dot mac-dot-teachers"></span><span>Teachers</span></div></div>
+        <div class="month-assign-cell"><div class="mac-month">December</div><div class="mac-row"><span class="mac-dot mac-dot-deacons"></span><span>Deacons</span></div></div>
+      </div>
+    </div>
+
+    <!-- Combined Youth (even months) -->
+    <div class="leader-ref-card">
+      <div class="leader-ref-head">
+        <span class="leader-ref-head-icon">👥</span>
+        <span class="leader-ref-head-title">Combined Youth — 2nd &amp; 4th Wed Lead Quorum</span>
+        <span class="leader-ref-head-sub">Even months only</span>
+      </div>
+      <div class="months-assign-grid" style="grid-template-columns: repeat(3,1fr);">
+        <div class="month-assign-cell"><div class="mac-month">February</div><div class="mac-row"><span class="mac-dot mac-dot-teachers"></span><span>Teachers</span></div></div>
+        <div class="month-assign-cell"><div class="mac-month">April</div><div class="mac-row"><span class="mac-dot mac-dot-priest"></span><span>Priests</span></div></div>
+        <div class="month-assign-cell"><div class="mac-month">June</div><div class="mac-row"><span class="mac-dot mac-dot-deacons"></span><span>Deacons</span></div></div>
+        <div class="month-assign-cell" style="border-bottom:none;"><div class="mac-month">August</div><div class="mac-row"><span class="mac-dot mac-dot-teachers"></span><span>Teachers</span></div></div>
+        <div class="month-assign-cell" style="border-bottom:none;"><div class="mac-month">October</div><div class="mac-row"><span class="mac-dot mac-dot-priest"></span><span>Priests</span></div></div>
+        <div class="month-assign-cell" style="border-bottom:none;border-right:none;"><div class="mac-month">December</div><div class="mac-row"><span class="mac-dot mac-dot-deacons"></span><span>Deacons</span></div></div>
+      </div>
+    </div>
+
+    <div class="leader-ref-legend">
+      <span class="leader-ref-legend-label">Key</span>
+      <span class="leader-ref-legend-item"><span class="mac-dot mac-dot-priest" style="display:inline-block;"></span> Priests</span>
+      <span class="leader-ref-legend-item"><span class="mac-dot mac-dot-teachers" style="display:inline-block;"></span> Teachers</span>
+      <span class="leader-ref-legend-item"><span class="mac-dot mac-dot-deacons" style="display:inline-block;"></span> Deacons</span>
+    </div>
+  </div>
+
+  <div class="section-divider">
+    <span class="section-divider-line"></span>
+    <span class="section-divider-label">Monthly Goals</span>
+    <span class="section-divider-line"></span>
+  </div>
+
+  <!-- ── TEMPLE BAPTISMS ── -->
+  <div class="temple-section">
+    <p class="section-label">Temple Baptisms</p>
+    <div class="temple-card">
+      <div class="temple-head">
+        <span style="font-size:1.1rem;">⛪</span>
+        <span style="font-size:.8rem;font-weight:600;color:var(--navy);">Goal: Once per month · Coordinated through invitation from the Bishop</span>
+      </div>
+      <div class="temple-body">
+        <p>Each quorum should plan at least one temple baptism per month. Coordinate with the bishop for scheduling and ensure youth bring family names when possible.</p>
+        <div class="pill-row">
+          <span class="pill">Saturday Morning</span>
+          <span class="pill">Wednesday Evening</span>
+          <span class="pill">7:00 PM</span>
+          <span class="pill">8:00 PM</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider">
+    <span class="section-divider-line"></span>
+    <span class="section-divider-label">Annual Activity Categories</span>
+    <span class="section-divider-line"></span>
+  </div>
+
+  <!-- ── ACTIVITY CATEGORIES ── -->
+  <div class="goals-section">
+    <p class="section-label">Plan activities across all four areas each year</p>
+    <div class="goals-grid">
+      <div class="goal-card goal-spiritual">
+        <div class="goal-card-header">
+          <span class="goal-icon">🙏</span>
+          <span class="goal-title">Spiritual</span>
+        </div>
+        <ul class="goal-list">
+          <li>Temple trips &amp; baptisms</li>
+          <li>Firesides &amp; devotionals</li>
+          <li>Scripture challenges</li>
+          <li>Missionary preparation</li>
+        </ul>
+      </div>
+      <div class="goal-card goal-social">
+        <div class="goal-card-header">
+          <span class="goal-icon">🤝</span>
+          <span class="goal-title">Social</span>
+        </div>
+        <ul class="goal-list">
+          <li>Service projects</li>
+          <li>Community events</li>
+          <li>Fellowship nights</li>
+          <li>Team challenges &amp; games</li>
+        </ul>
+      </div>
+      <div class="goal-card goal-physical">
+        <div class="goal-card-header">
+          <span class="goal-icon">🥾</span>
+          <span class="goal-title">Physical</span>
+        </div>
+        <ul class="goal-list">
+          <li>Campouts &amp; hiking</li>
+          <li>Sports &amp; fitness challenges</li>
+          <li>Mountain biking</li>
+          <li>Outdoor survival skills</li>
+        </ul>
+      </div>
+      <div class="goal-card goal-intellectual">
+        <div class="goal-card-header">
+          <span class="goal-icon">📚</span>
+          <span class="goal-title">Intellectual</span>
+        </div>
+        <ul class="goal-list">
+          <li>Cooking &amp; budgeting</li>
+          <li>Vehicle care &amp; first aid</li>
+          <li>Emergency preparedness</li>
+          <li>Career exploration</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider">
+    <span class="section-divider-line"></span>
+    <span class="section-divider-label">Planning Checklist</span>
+    <span class="section-divider-line"></span>
+  </div>
+
+  <!-- ── CHECKLIST ── -->
+  <div class="checklist-section">
+    <p class="section-label">Before finalizing any activity</p>
+    <div class="checklist-grid">
+      <div class="check-item"><span class="check-icon">☐</span> Does this strengthen testimonies?</div>
+      <div class="check-item"><span class="check-icon">☐</span> Will most youth enjoy it?</div>
+      <div class="check-item"><span class="check-icon">☐</span> Are there school or sports conflicts?</div>
+      <div class="check-item"><span class="check-icon">☐</span> Is it within budget?</div>
+      <div class="check-item"><span class="check-icon">☐</span> Has transportation been planned?</div>
+      <div class="check-item"><span class="check-icon">☐</span> Are youth involved in planning?</div>
+      <div class="check-item"><span class="check-icon">☐</span> Does it build unity?</div>
+      <div class="check-item"><span class="check-icon">☐</span> Is there a backup plan?</div>
+    </div>
+  </div>
+
+  <!-- ── CONFLICTS ── -->
+  <div class="conflict-section">
+    <p class="section-label">Common schedule conflicts to watch for</p>
+    <div class="conflict-grid">
+      <div class="conflict-card">
+        <div class="conflict-card-head">🏈 Sports</div>
+        <ul class="conflict-list">
+          <li>Football</li>
+          <li>Basketball</li>
+          <li>Volleyball</li>
+          <li>Community sports</li>
+        </ul>
+      </div>
+      <div class="conflict-card">
+        <div class="conflict-card-head">🎭 School</div>
+        <ul class="conflict-list">
+          <li>School plays</li>
+          <li>Band concerts</li>
+          <li>Choir concerts</li>
+          <li>Club activities</li>
+        </ul>
+      </div>
+      <div class="conflict-card">
+        <div class="conflict-card-head">🎄 Holidays</div>
+        <ul class="conflict-list">
+          <li>Thanksgiving</li>
+          <li>Christmas break</li>
+          <li>Spring break</li>
+          <li>Summer vacations</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="leader-ref-notice">
+    <span>⚠</span>
+    <span>Schedule may shift for Stake Conference, fundraisers, temple open house, youth camps and FSY, Halloween, Christmas party, or other major ward events. Adjust as needed when those events fall on mutual nights.</span>
+  </div>
+
+  <!-- ── QUOTE ── -->
+  <div class="quote-block" style="margin-top:var(--spacing-xl);">
+    <p>"The best activities are planned with the youth, not just for the youth."</p>
+  </div>
+
+</main>
+
+<footer>
+  <strong>Young Men Activity Planning Guide</strong> · Lehi 41st Ward · Designed for yearly planning
+</footer>
+
+</body>
+</html>
